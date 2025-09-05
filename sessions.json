@@ -1,0 +1,67 @@
+{
+    "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v11/terminal-keeper.json",
+    "theme": "tribe",
+    "active": "default",
+    "activateOnStartup": true,
+    "keepExistingTerminals": false,
+    "sessions": {
+        "default": [
+            {
+                "name": "batch-caller",
+                "autoExecuteCommands": false,
+                "icon": "play-circle",
+                "color": "terminal.ansiMagenta",
+                "commands": [
+                    "uv run scripts/run_workflow.py 2000"
+                ]
+            },
+            [
+                {
+                    "name": "worker-1",
+                    "autoExecuteCommands": true,
+                    "icon": "circuit-board",
+                    "color": "terminal.ansiGreen",
+                    "commands": [
+                        "uv run scripts/start_worker.py"
+                    ]
+                },
+                {
+                    "name": "worker-2",
+                    "autoExecuteCommands": true,
+                    "icon": "circuit-board",
+                    "color": "terminal.ansiGreen",
+                    "commands": [
+                        "uv run scripts/start_worker.py"
+                    ]
+                },
+                {
+                    "name": "worker-3",
+                    "autoExecuteCommands": true,
+                    "icon": "circuit-board",
+                    "color": "terminal.ansiGreen",
+                    "commands": [
+                        "uv run scripts/start_worker.py"
+                    ]
+                },
+                {
+                    "name": "worker-4",
+                    "autoExecuteCommands": true,
+                    "icon": "circuit-board",
+                    "color": "terminal.ansiGreen",
+                    "commands": [
+                        "uv run scripts/start_worker.py"
+                    ]
+                },
+                {
+                    "name": "worker-5",
+                    "autoExecuteCommands": true,
+                    "icon": "circuit-board",
+                    "color": "terminal.ansiGreen",
+                    "commands": [
+                        "uv run scripts/start_worker.py"
+                    ]
+                }
+            ]
+        ]
+    }
+}
