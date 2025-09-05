@@ -1,5 +1,7 @@
 # Temporal Batch Processing (Python)
 
+Version of the [Java Sample](https://github.com/steveandroulakis/temporal-batch-processing)
+
 A Python implementation demonstrating batch processing using Temporal Workflows. This sample processes words from a data file in batches, showcasing the parent-child workflow pattern with concurrency control and automatic continuation.
 
 ## Architecture
@@ -129,3 +131,7 @@ The project includes a dataset of 370,000+ English words for processing. The `pr
 ## License
 
 MIT License - see LICENSE file for details.
+
+# TODO for parity with Java version
+- [ ] Workers running on different ports with SDK metrics
+- [ ] Cool diagram in readme like the Java version

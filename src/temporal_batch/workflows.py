@@ -31,7 +31,7 @@ class BatchChildWorkflow:
 class BatchParentWorkflow:
     @workflow.run
     async def run(self, params: BatchParentWorkflowParams) -> None:
-        active: set[asyncio.Task] = set()
+        active: set[asyncio.Task[None]] = set()
         processed = 0
         current_offset = params.offset
 

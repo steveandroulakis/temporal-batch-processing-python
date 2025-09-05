@@ -1,7 +1,6 @@
 """Unit tests for temporal batch processing activities."""
 
 from pathlib import Path
-from typing import List
 
 import pytest
 

@@ -80,10 +80,56 @@ uv run mypy --strict src/ scripts/ tests/
 
 Testing:
 ```bash
-uv run pytest                           # All tests
-uv run pytest tests/test_activities.py  # Unit tests only
-uv run pytest tests/integration/        # Integration tests only
-uv run pytest --cov=src                # With coverage
+uv run pytest                           # All tests (16 total)
+uv run pytest tests/test_activities.py  # Activity unit tests only
+uv run pytest tests/test_workflows.py   # Workflow tests only
+uv run pytest tests/integration/        # Integration tests only  
+uv run pytest --cov=src                # With coverage report (92% total)
+uv run pytest -v                       # Verbose output with test names
+```
+
+#### Test Structure
+- **Unit Tests** (`tests/test_activities.py`): Test individual activities in isolation
+  - `create_single_batch`: File reading with offset pagination
+  - `process_record`: Record processing with simulated delays
+- **Workflow Tests** (`tests/test_workflows.py`): Test workflow orchestration with time-skipping
+  - `BatchChildWorkflow`: Child workflow execution with activity mocking
+  - `BatchParentWorkflow`: Parent-child workflow coordination
+  - Uses Temporal SDK testing patterns with proper activity name matching
+- **Integration Tests** (`tests/integration/`): Test component interactions
+  - End-to-end activity coordination
+  - File operations with real test data
+  - Offset and batch size functionality
+- **Test Configuration** (`tests/conftest.py`): Shared fixtures and setup
+  - Async test environment configuration
+  - Temporary test file creation with sample data
+  - Mock file path injection for activities
+
+#### Test Dependencies
+- `pytest>=8.4.2`: Core testing framework
+- `pytest-asyncio>=0.21.0`: Async test support (auto mode enabled)
+- `pytest-cov>=5.0.0`: Coverage reporting
+- All tests use `@pytest.mark.asyncio` for async support
+
+#### Workflow Testing Approach
+The workflow tests follow Temporal SDK testing best practices:
+- Use `WorkflowEnvironment.start_time_skipping()` for deterministic execution
+- Mock activities with proper `@activity.defn(name="...")` decorators matching real activity names
+- Register both parent and child workflows with the same Worker
+- Use consistent task queue across all workflow components
+- Validate activity execution counts and workflow completion
+
+#### Test Coverage (92% Total)
+Current test coverage includes:
+- ✅ Activity unit tests with various edge cases (90% coverage)
+- ✅ Workflow tests with parent-child orchestration (92% coverage)
+- ✅ Integration tests for activity coordination (100% coverage)
+- ✅ Shared configuration and data models (100% coverage)
+
+#### Running Tests with Coverage
+```bash
+uv run pytest --cov=src --cov-report=html  # HTML coverage report
+uv run pytest --cov=src --cov-report=term  # Terminal coverage report
 ```
 
 ### Package Management

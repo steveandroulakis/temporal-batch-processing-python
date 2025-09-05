@@ -22,7 +22,7 @@ async def main() -> None:
     
     try:
         client = await Client.connect(ADDRESS)
-        logger.info(f"Successfully connected to Temporal server")
+        logger.info("Successfully connected to Temporal server")
         logger.info(f"Client identity: {client.identity}")
         logger.info(f"Namespace: {client.namespace}")
         
@@ -33,7 +33,7 @@ async def main() -> None:
             activities=[create_single_batch, process_record],
             max_task_queue_activities_per_second=150,
         )
-        logger.info(f"Worker created successfully, starting worker...")
+        logger.info("Worker created successfully, starting worker...")
         await worker.run()
     except Exception as e:
         logger.error(f"Failed to start worker: {e}")

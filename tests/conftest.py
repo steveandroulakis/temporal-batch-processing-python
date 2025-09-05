@@ -6,10 +6,9 @@ from pathlib import Path
 from typing import AsyncGenerator, Generator
 
 import pytest
+import pytest_asyncio
 from temporalio.testing import WorkflowEnvironment
 
-from temporal_batch.activities import create_single_batch, process_record
-from temporal_batch.workflows import BatchChildWorkflow, BatchParentWorkflow
 
 
 @pytest.fixture(scope="session")
@@ -20,11 +19,14 @@ def event_loop() -> Generator[asyncio.AbstractEventLoop, None, None]:
     loop.close()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def temporal_env() -> AsyncGenerator[WorkflowEnvironment, None]:
     """Provide a Temporal test environment."""
-    async with WorkflowEnvironment.start_time_skipping() as env:
+    env = await WorkflowEnvironment.start_time_skipping()
+    try:
         yield env
+    finally:
+        await env.shutdown()
 
 
 @pytest.fixture
